@@ -1,0 +1,13 @@
+{
+  "name": "guest-rating-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Guest checkout reports — backend API + frontend, zero external dependencies",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}

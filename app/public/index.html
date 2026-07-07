@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="HostGuard — A premium guest rating platform for hosts to review, rate, and manage guest experiences with detailed analytics.">
+    <title>HostGuard — Guest Rating Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- ========== AUTH VIEW ========== -->
+    <div class="auth-view active" id="authView">
+        <div class="auth-card">
+            <div class="auth-brand">
+                <div class="brand-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                </div>
+                <h2>HostGuard</h2>
+            </div>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Log in</button>
+                <button class="auth-tab" data-tab="signup">Sign up</button>
+            </div>
+            
+            <!-- Login Form -->
+            <div class="auth-form active" id="formLogin">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" class="form-input" value="host@demo.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" class="form-input" value="password123">
+                </div>
+                <div id="loginError" class="auth-error"></div>
+                <button class="btn btn-primary btn-block" id="btnLogin">Log in</button>
+                <p class="auth-hint">Demo accounts: host@demo.com · guest@demo.com · mod@demo.com — password123</p>
+            </div>
+
+            <!-- Signup Form -->
+            <div class="auth-form" id="formSignup">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="signupName" class="form-input" placeholder="Your name">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="signupEmail" class="form-input" placeholder="you@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="signupPassword" class="form-input" placeholder="Create a password">
+                </div>
+                <div class="form-group">
+                    <label style="margin-bottom: 8px; display: block;">I am a...</label>
+                    <div style="display: flex; gap: 16px;">
+                        <label class="flag-checkbox" style="margin: 0;"><input type="checkbox" id="roleHost" checked><span class="checkmark"></span> Host</label>
+                        <label class="flag-checkbox" style="margin: 0;"><input type="checkbox" id="roleGuest"><span class="checkmark"></span> Guest</label>
+                    </div>
+                </div>
+                <div id="signupError" class="auth-error"></div>
+                <button class="btn btn-primary btn-block" id="btnSignup">Create account</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MAIN APP ========== -->
+    <div id="appContainer" style="display: none; width: 100%;">
+        <!-- ========== SIDEBAR ========== -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+            </div>
+            <span class="brand-text">HostGuard</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a class="nav-item active" data-page="dashboard" href="#">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7" />
+                    <rect x="14" y="3" width="7" height="7" />
+                    <rect x="14" y="14" width="7" height="7" />
+                    <rect x="3" y="14" width="7" height="7" />
+                </svg>
+                Dashboard
+            </a>
+            <a class="nav-item" data-page="guests" href="#">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+                Guests
+            </a>
+            <a class="nav-item" data-page="reviews" href="#">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polygon
+                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+                Reviews
+            </a>
+            <a class="nav-item" data-page="analytics" href="#">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="20" x2="18" y2="10" />
+                    <line x1="12" y1="20" x2="12" y2="4" />
+                    <line x1="6" y1="20" x2="6" y2="14" />
+                </svg>
+                Analytics
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="host-profile">
+                <div class="host-avatar">RB</div>
+                <div class="host-info">
+                    <div class="host-name">Ritu Bahri</div>
+                    <div class="host-role">Property Host</div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="main-content">
+
+        <!-- Top Bar -->
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <line x1="3" y1="18" x2="21" y2="18" />
+                    </svg>
+                </button>
+                <div class="search-container">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <input type="text" class="search-input" id="searchInput" placeholder="Search guests...">
+                </div>
+            </div>
+            <div class="top-bar-right">
+                <button class="icon-btn" title="Notifications">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                    </svg>
+                    <span class="notification-badge">5</span>
+                </button>
+                <button class="btn btn-primary" id="newReviewBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
+                    New Review
+                </button>
+            </div>
+        </header>
+
+        <!-- ==================== PAGE: DASHBOARD ==================== -->
+        <div class="page active" id="page-dashboard">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Dashboard</h1>
+                    <p class="page-subtitle">Overview of your guest ratings and activity</p>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" data-count="12">0</div>
+                        <div class="stat-label">Total Guests</div>
+                    </div>
+                    <span class="stat-trend up">+3 this month</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" data-count="7">0</div>
+                        <div class="stat-label">Reviews Given</div>
+                    </div>
+                    <span class="stat-trend up">+2 this month</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="20" x2="18" y2="10" />
+                            <line x1="12" y1="20" x2="12" y2="4" />
+                            <line x1="6" y1="20" x2="6" y2="14" />
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" data-count="3.9" data-decimal="true">0</div>
+                        <div class="stat-label">Avg Rating</div>
+                    </div>
+                    <span class="stat-trend neutral">Steady</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" data-count="5">0</div>
+                        <div class="stat-label">Pending Reviews</div>
+                    </div>
+                    <span class="stat-trend up">Needs attention</span>
+                </div>
+            </div>
+
+            <!-- Pending Guests -->
+            <section>
+                <div class="section-header">
+                    <h2>⏳ Awaiting Review</h2>
+                    <a href="#" class="link-btn" id="viewAllGuests">View All Guests →</a>
+                </div>
+                <div class="guest-cards-grid" id="guestCardsGrid">
+                    <!-- Rendered by JS -->
+                </div>
+            </section>
+
+            <!-- Recent Reviews -->
+            <section style="margin-top: 32px;">
+                <div class="section-header">
+                    <h2>⭐ Recent Reviews</h2>
+                    <a href="#" class="link-btn" id="viewAllReviews">View All Reviews →</a>
+                </div>
+                <div class="reviews-list" id="recentReviewsList">
+                    <!-- Rendered by JS -->
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== PAGE: GUESTS ==================== -->
+        <div class="page" id="page-guests">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Guest Directory</h1>
+                    <p class="page-subtitle">All guests across your properties</p>
+                </div>
+            </div>
+
+            <div class="guest-table-container">
+                <table class="guest-table">
+                    <thead>
+                        <tr>
+                            <th>Guest</th>
+                            <th>Property</th>
+                            <th>Check-in</th>
+                            <th>Check-out</th>
+                            <th>Score</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="guestTableBody">
+                        <!-- Rendered by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ==================== PAGE: REVIEWS ==================== -->
+        <div class="page" id="page-reviews">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">All Reviews</h1>
+                    <p class="page-subtitle">Complete review history for all guests</p>
+                </div>
+            </div>
+
+            <div class="reviews-list" id="allReviewsList">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+
+        <!-- ==================== PAGE: ANALYTICS ==================== -->
+        <div class="page" id="page-analytics">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Analytics</h1>
+                    <p class="page-subtitle">Insights from your guest rating data</p>
+                </div>
+            </div>
+
+            <div class="analytics-grid">
+                <!-- Radar Chart -->
+                <div class="analytics-card">
+                    <h3>📊 Category Averages</h3>
+                    <div class="radar-chart" id="radarChart">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+                <!-- Bar Chart -->
+                <div class="analytics-card">
+                    <h3>📈 Rating Distribution</h3>
+                    <div class="bar-chart" id="barChart">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+                <!-- Timeline -->
+                <div class="analytics-card">
+                    <h3>📅 Reviews Over Time</h3>
+                    <div class="timeline-chart" id="timelineChart">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+                <!-- Top Guests -->
+                <div class="analytics-card">
+                    <h3>🏆 Top Rated Guests</h3>
+                    <div class="top-guests-list" id="topGuestsList">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ========== REVIEW MODAL ========== -->
+    <div class="modal-overlay" id="reviewModal">
+        <div class="modal">
+            <!-- Close Button -->
+            <button class="modal-close" id="modalClose">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+
+            <!-- Progress Bar -->
+            <div class="modal-progress">
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-steps">
+                    <div class="progress-step active" data-step="1">
+                        <div class="step-dot">1</div>
+                        <span>Select Guest</span>
+                    </div>
+                    <div class="progress-step" data-step="2">
+                        <div class="step-dot">2</div>
+                        <span>Rate</span>
+                    </div>
+                    <div class="progress-step" data-step="3">
+                        <div class="step-dot">3</div>
+                        <span>Notes</span>
+                    </div>
+                    <div class="progress-step" data-step="4">
+                        <div class="step-dot">4</div>
+                        <span>Confirm</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== STEP 1: Select Guest ===== -->
+            <div class="modal-step active" id="step-1">
+                <h2 class="step-title">Select a Guest</h2>
+                <p class="step-desc">Choose the guest you want to review from your pending list.</p>
+
+                <div class="guest-search-modal">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <input type="text" id="guestSearchModal" placeholder="Search guests...">
+                </div>
+
+                <div class="guest-select-list" id="guestSelectList">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+
+            <!-- ===== STEP 2: Rate Guest ===== -->
+            <div class="modal-step" id="step-2">
+                <h2 class="step-title">Rate <span id="selectedGuestName">Guest</span></h2>
+                <p class="step-desc">Rate the guest across different categories.</p>
+
+                <div class="rating-categories" id="ratingCategories">
+                    <!-- Cleanliness -->
+                    <div class="rating-category" data-category="cleanliness">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" />
+                                    <path d="M13 13l6 6" />
+                                </svg>
+                            </div>
+                            <div>
+                                <span class="category-name">Cleanliness</span>
+                                <span class="category-desc">How clean was the property left?</span>
+                            </div>
+                        </div>
+                        <div class="star-rating" data-rating="0">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                        </div>
+                        <span class="rating-label">Not rated</span>
+                    </div>
+
+                    <!-- Property Care -->
+                    <div class="rating-category" data-category="property-care">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                    <polyline points="9 22 9 12 15 12 15 22" />
+                                </svg>
+                            </div>
+                            <div>
+                                <span class="category-name">Property Care</span>
+                                <span class="category-desc">Care taken with furniture & appliances</span>
+                            </div>
+                        </div>
+                        <div class="star-rating" data-rating="0">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                        </div>
+                        <span class="rating-label">Not rated</span>
+                    </div>
+
+                    <!-- Discipline -->
+                    <div class="rating-category" data-category="discipline">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                    <polyline points="22 4 12 14.01 9 11.01" />
+                                </svg>
+                            </div>
+                            <div>
+                                <span class="category-name">Discipline</span>
+                                <span class="category-desc">Following house rules & checkout times</span>
+                            </div>
+                        </div>
+                        <div class="star-rating" data-rating="0">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                        </div>
+                        <span class="rating-label">Not rated</span>
+                    </div>
+
+                    <!-- Communication -->
+                    <div class="rating-category" data-category="communication">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <span class="category-name">Communication</span>
+                                <span class="category-desc">Responsiveness & clarity</span>
+                            </div>
+                        </div>
+                        <div class="star-rating" data-rating="0">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                        </div>
+                        <span class="rating-label">Not rated</span>
+                    </div>
+
+                    <!-- Noise & Neighbors -->
+                    <div class="rating-category" data-category="noise">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                                    <line x1="23" y1="9" x2="17" y2="15" />
+                                    <line x1="17" y1="9" x2="23" y2="15" />
+                                </svg>
+                            </div>
+                            <div>
+                                <span class="category-name">Noise & Neighbors</span>
+                                <span class="category-desc">Respect for noise levels & neighbors</span>
+                            </div>
+                        </div>
+                        <div class="star-rating" data-rating="0">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                        </div>
+                        <span class="rating-label">Not rated</span>
+                    </div>
+
+                    <!-- Overall -->
+                    <div class="rating-category" data-category="overall">
+                        <div class="category-header">
+                            <div class="category-icon overall-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon
+                                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                </svg>
+                            </div>
+                            <div>
+                                <span class="category-name">Overall Experience</span>
+                                <span class="category-desc">Your overall impression of this guest</span>
+                            </div>
+                        </div>
+                        <div class="star-rating" data-rating="0">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                        </div>
+                        <span class="rating-label">Not rated</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== STEP 3: Notes & Tags ===== -->
+            <div class="modal-step" id="step-3">
+                <h2 class="step-title">Notes & Tags</h2>
+                <p class="step-desc">Add a written review and tag the guest's behavior.</p>
+
+                <!-- Written Review -->
+                <div class="notes-section">
+                    <label class="field-label" for="reviewText">Written Review (optional)</label>
+                    <textarea class="review-textarea" id="reviewText"
+                        placeholder="Share your experience hosting this guest..." maxlength="500"></textarea>
+                    <span class="char-count"><span id="charCount">0</span> / 500</span>
+                </div>
+
+                <!-- Tags -->
+                <div class="tags-section">
+                    <label class="field-label">Guest Tags</label>
+                    <div class="tag-options">
+                        <button class="tag-btn positive" data-tag="respectful">🤝 Respectful</button>
+                        <button class="tag-btn positive" data-tag="quiet">🤫 Quiet</button>
+                        <button class="tag-btn positive" data-tag="tidy">🧹 Tidy</button>
+                        <button class="tag-btn positive" data-tag="great-communication">💬 Great Communication</button>
+                        <button class="tag-btn positive" data-tag="on-time">⏰ On Time</button>
+                        <button class="tag-btn positive" data-tag="would-host-again">🔁 Would Host Again</button>
+                        <button class="tag-btn negative" data-tag="noisy">🔊 Noisy</button>
+                        <button class="tag-btn negative" data-tag="messy">🗑️ Messy</button>
+                        <button class="tag-btn negative" data-tag="late-checkout">⏳ Late Checkout</button>
+                        <button class="tag-btn negative" data-tag="property-damage">⚠️ Property Damage</button>
+                        <button class="tag-btn negative" data-tag="rule-breaker">🚫 Rule Breaker</button>
+                    </div>
+                </div>
+
+                <!-- Flags -->
+                <div class="tags-section">
+                    <label class="field-label">Guest Flags</label>
+                    <div class="flag-options">
+                        <label class="flag-checkbox">
+                            <input type="checkbox" id="flagRecommend">
+                            <span class="checkmark recommend"></span>
+                            ✅ Recommend to other hosts
+                        </label>
+                        <label class="flag-checkbox">
+                            <input type="checkbox" id="flagCaution">
+                            <span class="checkmark caution"></span>
+                            ⚠️ Proceed with caution
+                        </label>
+                        <label class="flag-checkbox">
+                            <input type="checkbox" id="flagBlock">
+                            <span class="checkmark block"></span>
+                            🚫 Block from future bookings
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== STEP 4: Confirmation ===== -->
+            <div class="modal-step" id="step-4">
+                <h2 class="step-title">Confirm Review</h2>
+                <p class="step-desc">Review your ratings before submitting.</p>
+
+                <div class="confirmation-card">
+                    <div class="confirm-guest-header" id="confirmGuestHeader">
+                        <!-- Rendered by JS -->
+                    </div>
+                    <div class="confirm-ratings" id="confirmRatings">
+                        <!-- Rendered by JS -->
+                    </div>
+                    <div class="confirm-review-text" id="confirmReviewText">
+                        <!-- Rendered by JS -->
+                    </div>
+                    <div class="confirm-tags" id="confirmTags">
+                        <!-- Rendered by JS -->
+                    </div>
+                    <div class="confirm-flags" id="confirmFlags">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== STEP 5: Success ===== -->
+            <div class="modal-step" id="step-5">
+                <div class="success-container">
+                    <div class="success-icon-wrap">
+                        <svg class="success-checkmark" width="50" height="50" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                    </div>
+                    <h2 class="success-title">Review Submitted!</h2>
+                    <p class="success-desc">Your guest review has been saved. It will help other hosts make informed
+                        decisions.</p>
+                    <button class="btn btn-primary" id="successDone">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        Done
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer" id="modalFooter">
+                <button class="btn btn-ghost" id="btnBack" style="visibility: hidden;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                    Back
+                </button>
+                <button class="btn btn-primary" id="btnNext">
+                    Next
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+
+</html>

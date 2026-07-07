@@ -1,0 +1,23 @@
+{
+  "name": "hostguard",
+  "version": "1.0.0",
+  "description": "HostGuard — A guest rating platform for property hosts with mutual blind reveal, disputes, and moderation.",
+  "private": true,
+  "scripts": {
+    "start": "cd app && node server.js",
+    "dev": "cd app && node server.js",
+    "frontend": "npx serve app/public -l 3000"
+  },
+  "keywords": [
+    "guest-rating",
+    "host-platform",
+    "reviews",
+    "trust-scores",
+    "disputes",
+    "airbnb"
+  ],
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "license": "MIT"
+}
