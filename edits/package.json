@@ -1,0 +1,25 @@
+{
+  "name": "hostguard",
+  "version": "1.0.0",
+  "description": "HostGuard — A guest rating platform for property hosts with mutual blind reveal, disputes, and moderation.",
+  "private": true,
+  "scripts": {
+    "start": "npx serve public -l 3000",
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "@vercel/postgres": "^0.8.0"
+  },
+  "keywords": [
+    "guest-rating",
+    "host-platform",
+    "reviews",
+    "trust-scores",
+    "disputes",
+    "airbnb"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "license": "MIT"
+}
